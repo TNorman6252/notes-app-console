@@ -19,6 +19,8 @@ class NoteAPITest {
     private var emptyNotes: NoteAPI? = NoteAPI()
     private var notesArchived: NoteAPI? = NoteAPI()
     private var notesActive: NoteAPI? = NoteAPI()
+    private var notesPriority: NoteAPI? = NoteAPI()
+    private var noteNumbers: NoteAPI? = NoteAPI()
 
     @BeforeEach
     fun setup(){
@@ -163,6 +165,44 @@ class NoteAPITest {
             assertTrue( notesActive!!.add(noteNotArchivedTest2))
             assertTrue( notesActive!!.add(noteArchivedTest))
             assertEquals(2, notesActive!!.numberOfActiveNotes())
+        }
+    }
+
+    @Nested
+    inner class ListNotesByPriority {
+
+        @Test
+        fun `prints Notes by selected priority`() {
+            val note1 = Note("Test title", 2, "Test category", false)
+            val note2 = Note("Another Test title", 5, "Test category", false)
+            val note3 = Note("Test title", 2, "Test category", true)
+
+            assertEquals(0, notesPriority!!.numberOfNotes())
+            assertTrue( notesPriority!!.add(note1))
+            assertTrue( notesPriority!!.add(note2))
+            assertTrue( notesPriority!!.add(note3))
+            val answer = notesPriority!!.listNotesBySelectedPriority(2)
+            assertTrue(answer.contains(note1.toString()))
+            assertTrue(!answer.contains(note2.toString()))
+            assertTrue(answer.contains(note3.toString()))
+        }
+    }
+
+    @Nested
+    inner class NumberOfNotesByPriority {
+
+        @Test
+        fun `prints Note object size categorized by selected priority level`() {
+            val note1 = Note("Test title", 2, "Test category", false)
+            val note2 = Note("Another Test title", 5, "Test category", false)
+            val note3 = Note("Test title", 2, "Test category", true)
+
+            assertEquals(0, noteNumbers!!.numberOfNotes())
+            assertTrue( noteNumbers!!.add(note1))
+            assertTrue( noteNumbers!!.add(note2))
+            assertTrue( noteNumbers!!.add(note3))
+            val answer = noteNumbers!!.numberOfNotesByPriority(2)
+            assertTrue(answer == 2)
         }
     }
 
