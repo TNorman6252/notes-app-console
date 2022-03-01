@@ -86,4 +86,13 @@ class NoteAPI {
         }
         return numOfActiveNotes
     }
+
+//    fun listNotesBySelectedPriority(priority: Int): String {
+//
+//    }
+
+//    fun numberOfNotesByPriority(): Int {
+//        //helper method to determine how many notes there are of a specific priority
+//    }
+
 }
