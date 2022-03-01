@@ -133,5 +133,20 @@ class NoteAPITest {
         }
     }
 
+    @Nested
+    inner class NumberOfArchivedNotes {
+
+        @Test
+        fun `prints number of Archived Notes`() {
+            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+
+            assertEquals(0, notesArchived!!.numberOfArchivedNotes())
+            assertTrue( notesArchived!!.add(noteNotArchivedTest))
+            assertTrue( notesArchived!!.add(noteArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfArchivedNotes())
+        }
+    }
+
 
 }

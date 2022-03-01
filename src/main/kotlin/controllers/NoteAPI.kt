@@ -65,9 +65,16 @@ class NoteAPI {
         }
     }
 
-//    fun numberOfArchivedNotes(): Int {
-//        //helper method to determine how many archived notes there are
-//    }
+    fun numberOfArchivedNotes(): Int {
+        //helper method to determine how many archived notes there are
+        var numOfArchivedNotes = 0;
+        for(Note in notes) {
+            if(Note.isNoteArchived) {
+                numOfArchivedNotes++
+            }
+        }
+        return numOfArchivedNotes
+    }
 
 //    fun numberOfActiveNotes(): Int {
 //        //helper method to determine how many active notes there are
