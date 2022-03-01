@@ -111,6 +111,27 @@ class NoteAPITest {
         }
     }
 
+    @Nested
+    inner class ArchivedNotes {
+
+        @Test
+        fun `listArchivedNotes returns No Archived Notes message when all arraylist objects have isNoteArchived set to false`() {
+            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            assertEquals(0, notesArchived!!.numberOfNotes())
+            assertTrue( notesArchived!!.add(noteNotArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.listArchivedNotes().lowercase().contains("no archived notes"))
+        }
+
+        @Test
+        fun `listArchivedNotes returns Archived Notes when all arrayList objects have isNoteArchived set to true`() {
+            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+            assertEquals(0, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.add(noteArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.listArchivedNotes().contains(noteArchivedTest.toString()))
+        }
+    }
 
 
 }

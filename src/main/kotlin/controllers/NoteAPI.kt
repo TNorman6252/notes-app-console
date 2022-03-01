@@ -51,8 +51,19 @@ class NoteAPI {
       }
     }
 
-//    fun listArchivedNotes(): String {
-//    }
+    fun listArchivedNotes(): String {
+        var archivedNotes = ""
+        for(Note in notes) {
+            if(Note.isNoteArchived) {
+                archivedNotes += "${Note}\n"
+            }
+        }
+        return if(archivedNotes.isEmpty()) {
+            "No archived notes"
+        } else {
+            archivedNotes
+        }
+    }
 
 //    fun numberOfArchivedNotes(): Int {
 //        //helper method to determine how many archived notes there are
