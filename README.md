@@ -8,11 +8,15 @@ experience of each source file.
 ## What's Included 
 - Add Note
 - List Notes
+- Number of Notes
+- Find Note
+- List Active and Archived Notes
+- Listing Notes By Priority Level
 - Update Note
 - Delete Note
 - Exit Note App
 
-**All of these features are currently incomplete with exiting the app being the exception at this current stage in development.**
+**All of these features mentioned above are fully functional and COMPLETE! Stay Tuned for more updates**
 
 
 
