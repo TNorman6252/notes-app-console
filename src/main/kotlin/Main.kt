@@ -1,4 +1,3 @@
-import controllers.NoteAPI
 import models.Note
 import mu.KotlinLogging
 import utils.ScannerInput
