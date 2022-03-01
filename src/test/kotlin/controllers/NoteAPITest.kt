@@ -20,6 +20,7 @@ class NoteAPITest {
     private var notesArchived: NoteAPI? = NoteAPI()
     private var notesActive: NoteAPI? = NoteAPI()
     private var notesPriority: NoteAPI? = NoteAPI()
+    private var noteNumbers: NoteAPI? = NoteAPI()
 
     @BeforeEach
     fun setup(){
@@ -184,6 +185,24 @@ class NoteAPITest {
             assertTrue(answer.contains(note1.toString()))
             assertTrue(!answer.contains(note2.toString()))
             assertTrue(answer.contains(note3.toString()))
+        }
+    }
+
+    @Nested
+    inner class NumberOfNotesByPriority {
+
+        @Test
+        fun `prints Note object size categorized by selected priority level`() {
+            val note1 = Note("Test title", 2, "Test category", false)
+            val note2 = Note("Another Test title", 5, "Test category", false)
+            val note3 = Note("Test title", 2, "Test category", true)
+
+            assertEquals(0, noteNumbers!!.numberOfNotes())
+            assertTrue( noteNumbers!!.add(note1))
+            assertTrue( noteNumbers!!.add(note2))
+            assertTrue( noteNumbers!!.add(note3))
+            val answer = noteNumbers!!.numberOfNotesByPriority(2)
+            assertTrue(answer == 2)
         }
     }
 

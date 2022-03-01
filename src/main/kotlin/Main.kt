@@ -29,8 +29,9 @@ fun mainMenu() : Int {
          > |   5) Number Of Archived Notes
          > |   6) Number Of Active Notes
          > |   7) List Notes by Selected Priority
-         > |   8) Update Note
-         > |   9) Delete Note
+         > |   8) Number of Notes by Priority
+         > |   9) Update Note
+         > |   10) Delete Note
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -48,8 +49,9 @@ fun runMenu() {
             5 -> numberOfArchivedNotes()
             6 -> numberOfActiveNotes()
             7 -> listNotesBySelectedPriority()
-            8 -> updateNote()
-            9 -> deleteNote()
+            8 -> numberOfNotesByPriority()
+            9 -> updateNote()
+            10 -> deleteNote()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -94,6 +96,11 @@ fun numberOfActiveNotes() {
 fun listNotesBySelectedPriority() {
     var notePriority = parseInt(readNextLine("Enter Note Priority Level: "))
     println(noteAPI.listNotesBySelectedPriority(notePriority))
+}
+
+fun numberOfNotesByPriority() {
+    var priorityLevel = parseInt(readNextLine("Enter priority level: "))
+    println(noteAPI.numberOfNotesByPriority(priorityLevel))
 }
 
 fun updateNote() {
