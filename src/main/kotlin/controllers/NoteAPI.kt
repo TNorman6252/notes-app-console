@@ -37,8 +37,19 @@ class NoteAPI {
         return (index >= 0 && index < list.size)
     }
 
-//    fun listActiveNotes(): String {
-//    }
+    fun listActiveNotes(): String {
+        var activeNotes = ""
+        for(Note in notes) {
+            if(!Note.isNoteArchived) {
+                activeNotes += "${Note}\n"
+            }
+        }
+      return if(activeNotes.isEmpty()) {
+             "No active notes"
+        } else {
+          activeNotes
+      }
+    }
 
 //    fun listArchivedNotes(): String {
 //    }

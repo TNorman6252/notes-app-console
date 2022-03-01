@@ -17,6 +17,7 @@ class NoteAPITest {
     private var swim: Note? = null
     private var populatedNotes: NoteAPI? = NoteAPI()
     private var emptyNotes: NoteAPI? = NoteAPI()
+    private var notesArchived: NoteAPI? = NoteAPI()
 
     @BeforeEach
     fun setup(){
@@ -32,6 +33,7 @@ class NoteAPITest {
         populatedNotes!!.add(codeApp!!)
         populatedNotes!!.add(testApp!!)
         populatedNotes!!.add(swim!!)
+
     }
 
     @AfterEach
@@ -86,5 +88,29 @@ class NoteAPITest {
             assertTrue(notesString.contains("summer holiday"))
         }
     }
+
+    @Nested
+    inner class ActiveNotes {
+
+        @Test
+        fun `listActiveNotes returns No Active Notes message when all arraylist objects have isNoteArchived set to true`() {
+            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+            assertEquals(0, notesArchived!!.numberOfNotes())
+            assertTrue( notesArchived!!.add(noteArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.listActiveNotes().lowercase().contains("no active notes"))
+        }
+
+        @Test
+        fun `listAllNotes returns Active Notes when all arrayList objects have isNoteArchived set to false`() {
+            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            assertEquals(0, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.add(noteNotArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.listActiveNotes().contains(noteNotArchivedTest.toString()))
+        }
+    }
+
+
 
 }
