@@ -18,6 +18,7 @@ class NoteAPITest {
     private var populatedNotes: NoteAPI? = NoteAPI()
     private var emptyNotes: NoteAPI? = NoteAPI()
     private var notesArchived: NoteAPI? = NoteAPI()
+    private var notesActive: NoteAPI? = NoteAPI()
 
     @BeforeEach
     fun setup(){
@@ -145,6 +146,23 @@ class NoteAPITest {
             assertTrue( notesArchived!!.add(noteNotArchivedTest))
             assertTrue( notesArchived!!.add(noteArchivedTest))
             assertEquals(1, notesArchived!!.numberOfArchivedNotes())
+        }
+    }
+
+    @Nested
+    inner class NumberOfActiveNotes {
+
+        @Test
+        fun `prints number of Active Notes`() {
+            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            val noteNotArchivedTest2 = Note("Another Test title", 3, "Test category", false)
+            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+
+            assertEquals(0, notesActive!!.numberOfActiveNotes())
+            assertTrue( notesActive!!.add(noteNotArchivedTest))
+            assertTrue( notesActive!!.add(noteNotArchivedTest2))
+            assertTrue( notesActive!!.add(noteArchivedTest))
+            assertEquals(2, notesActive!!.numberOfActiveNotes())
         }
     }
 
