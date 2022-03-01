@@ -17,6 +17,8 @@ class NoteAPITest {
     private var swim: Note? = null
     private var populatedNotes: NoteAPI? = NoteAPI()
     private var emptyNotes: NoteAPI? = NoteAPI()
+    private var notesArchived: NoteAPI? = NoteAPI()
+    private var notesActive: NoteAPI? = NoteAPI()
 
     @BeforeEach
     fun setup(){
@@ -32,6 +34,7 @@ class NoteAPITest {
         populatedNotes!!.add(codeApp!!)
         populatedNotes!!.add(testApp!!)
         populatedNotes!!.add(swim!!)
+
     }
 
     @AfterEach
@@ -86,5 +89,82 @@ class NoteAPITest {
             assertTrue(notesString.contains("summer holiday"))
         }
     }
+
+    @Nested
+    inner class ActiveNotes {
+
+        @Test
+        fun `listActiveNotes returns No Active Notes message when all arraylist objects have isNoteArchived set to true`() {
+            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+            assertEquals(0, notesArchived!!.numberOfNotes())
+            assertTrue( notesArchived!!.add(noteArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.listActiveNotes().lowercase().contains("no active notes"))
+        }
+
+        @Test
+        fun `listAllNotes returns Active Notes when all arrayList objects have isNoteArchived set to false`() {
+            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            assertEquals(0, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.add(noteNotArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.listActiveNotes().contains(noteNotArchivedTest.toString()))
+        }
+    }
+
+    @Nested
+    inner class ArchivedNotes {
+
+        @Test
+        fun `listArchivedNotes returns No Archived Notes message when all arraylist objects have isNoteArchived set to false`() {
+            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            assertEquals(0, notesArchived!!.numberOfNotes())
+            assertTrue( notesArchived!!.add(noteNotArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.listArchivedNotes().lowercase().contains("no archived notes"))
+        }
+
+        @Test
+        fun `listArchivedNotes returns Archived Notes when all arrayList objects have isNoteArchived set to true`() {
+            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+            assertEquals(0, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.add(noteArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfNotes())
+            assertTrue(notesArchived!!.listArchivedNotes().contains(noteArchivedTest.toString()))
+        }
+    }
+
+    @Nested
+    inner class NumberOfArchivedNotes {
+
+        @Test
+        fun `prints number of Archived Notes`() {
+            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+
+            assertEquals(0, notesArchived!!.numberOfArchivedNotes())
+            assertTrue( notesArchived!!.add(noteNotArchivedTest))
+            assertTrue( notesArchived!!.add(noteArchivedTest))
+            assertEquals(1, notesArchived!!.numberOfArchivedNotes())
+        }
+    }
+
+    @Nested
+    inner class NumberOfActiveNotes {
+
+        @Test
+        fun `prints number of Active Notes`() {
+            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            val noteNotArchivedTest2 = Note("Another Test title", 3, "Test category", false)
+            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+
+            assertEquals(0, notesActive!!.numberOfActiveNotes())
+            assertTrue( notesActive!!.add(noteNotArchivedTest))
+            assertTrue( notesActive!!.add(noteNotArchivedTest2))
+            assertTrue( notesActive!!.add(noteArchivedTest))
+            assertEquals(2, notesActive!!.numberOfActiveNotes())
+        }
+    }
+
 
 }
