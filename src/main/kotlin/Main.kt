@@ -4,6 +4,7 @@ import mu.KotlinLogging
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
+import java.lang.Integer.parseInt
 import java.lang.System.exit
 
 
@@ -26,9 +27,10 @@ fun mainMenu() : Int {
          > |   3) List Active Notes             |
          > |   4) List Archived Note             |
          > |   5) Number Of Archived Notes
-         > |   6) Number Of Active NoteS
-         > |   7) Update Note
-         > |   8) Delete Note
+         > |   6) Number Of Active Notes
+         > |   7) List Notes by Selected Priority
+         > |   8) Update Note
+         > |   9) Delete Note
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -45,8 +47,9 @@ fun runMenu() {
             4 -> listArchivedNotes()
             5 -> numberOfArchivedNotes()
             6 -> numberOfActiveNotes()
-            7 -> updateNote()
-            8 -> deleteNote()
+            7 -> listNotesBySelectedPriority()
+            8 -> updateNote()
+            9 -> deleteNote()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -86,6 +89,11 @@ fun numberOfArchivedNotes() {
 
 fun numberOfActiveNotes() {
     println(noteAPI.numberOfActiveNotes())
+}
+
+fun listNotesBySelectedPriority() {
+    var notePriority = parseInt(readNextLine("Enter Note Priority Level: "))
+    println(noteAPI.listNotesBySelectedPriority(notePriority))
 }
 
 fun updateNote() {

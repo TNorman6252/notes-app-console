@@ -87,9 +87,19 @@ class NoteAPI {
         return numOfActiveNotes
     }
 
-//    fun listNotesBySelectedPriority(priority: Int): String {
-//
-//    }
+    fun listNotesBySelectedPriority(priority: Int): String {
+
+        var notesByPriority = ""
+        for(Note in notes) {
+            if(Note.notePriority == priority) {
+                notesByPriority += "${Note}\n"
+            }
+        }
+        if(notesByPriority.isEmpty()) {
+            return "No Note at that priority level"
+        }
+        return notesByPriority
+    }
 
 //    fun numberOfNotesByPriority(): Int {
 //        //helper method to determine how many notes there are of a specific priority
