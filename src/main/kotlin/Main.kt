@@ -104,7 +104,22 @@ fun numberOfNotesByPriority() {
 }
 
 fun updateNote() {
-    logger.info { "updateNote() function invoked" }
+   // logger.info { "updateNote() function invoked" }
+    listNotes()
+    if(noteAPI.numberOfNotes() > 0) {
+        val indexToUpdate = readNextInt("Enter the index of the note to update: ")
+        if(noteAPI.isValidIndex(indexToUpdate)) {
+            val noteTitle = readNextLine("Enter a title for the note: ")
+            val notePriority = parseInt(readNextLine("Enter a priority (1-low, 2, 3, 4, 5-high): "))
+            val noteCategory = readNextLine("Enter a category for the note: ")
+
+            if(noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false))) {
+                println("Update Successful")
+            } else {
+                println("Update Failed")
+            }
+        }
+    }
 }
 
 fun deleteNote() {
