@@ -26,7 +26,7 @@ fun mainMenu() : Int {
          > ----------------------------------
          > | NOTE MENU                      |
          > |   1) Add a note                |
-         > |   2) List all notes            |
+         > |   2) List notes                |
          > |   3) List Active Notes             |
          > |   4) List Archived Note             |
          > |   5) Number Of Archived Notes
@@ -83,7 +83,19 @@ fun addNote() {
 
 fun listNotes() {
    // logger.info { "listNotes() function invoked" }
-    println(noteAPI.listAllNotes())
+    println("NOTE MENU\n")
+    println(" 1) List all notes")
+    println(" 2) List active notes")
+    println(" 3) List archived notes")
+
+    var userChoice = parseInt(readNextLine("Enter choice [1-3]: "))
+
+    when(userChoice) {
+        1 -> println(noteAPI.listAllNotes())
+        2 -> println(noteAPI.listActiveNotes())
+        3 -> println(noteAPI.listArchivedNotes())
+        else -> println("Invalid Choice Entered")
+    }
 }
 
 fun listActiveNotes() {
