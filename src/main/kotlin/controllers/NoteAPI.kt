@@ -32,6 +32,19 @@ class NoteAPI {
         } else null
     }
 
+    fun updateNote(indexToUpdate: Int, note: Note?): Boolean {
+        val foundNote = findNote(indexToUpdate)
+
+        if((foundNote != null) && (note != null)) {
+            foundNote.noteTitle = note.noteTitle
+            foundNote.notePriority = note.notePriority
+            foundNote.noteCategory = note.noteCategory
+            return true
+        }
+
+        return false
+    }
+
     fun findNote(index: Int): Note? {
         return if (isValidListIndex(index, notes)) {
             notes[index]
@@ -41,6 +54,10 @@ class NoteAPI {
     //utility method to determine if an index is valid in a list.
     fun isValidListIndex(index: Int, list: List<Any>): Boolean {
         return (index >= 0 && index < list.size)
+    }
+
+    fun isValidIndex(index: Int) : Boolean {
+        return isValidListIndex(index, notes)
     }
 
     fun listActiveNotes(): String {
