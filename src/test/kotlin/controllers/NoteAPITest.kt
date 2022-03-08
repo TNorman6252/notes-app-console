@@ -21,6 +21,8 @@ class NoteAPITest {
     private var testApp: Note? = null
     private var swim: Note? = null
     private var populatedNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
+    private var archiveNoteTest: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
+    private var alreadyArchivedNoteTest: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var emptyNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var notesArchived: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var notesActive: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
@@ -334,6 +336,27 @@ class NoteAPITest {
         assertEquals(storingNotes.findNote(0), loadedNotes.findNote(0))
         assertEquals(storingNotes.findNote(1), loadedNotes.findNote(1))
         assertEquals(storingNotes.findNote(2), loadedNotes.findNote(2))
+    }
+
+    @Nested
+    inner class ArchiveNote {
+        @Test
+        fun `adding Note and archiving it`() {
+            val newNote = Note("Study Lambdas", 1, "College", false)
+            assertEquals(0, archiveNoteTest!!.numberOfNotes())
+            assertTrue(archiveNoteTest!!.add(newNote))
+            assertEquals(1, archiveNoteTest!!.numberOfNotes())
+            assertTrue(archiveNoteTest!!.archiveNote(0))
+        }
+
+        @Test
+        fun `adding Note but it's already archived so a message telling the user is displayed`() {
+            val newNote = Note("Study Lambdas", 1, "College", true)
+            assertEquals(0, alreadyArchivedNoteTest!!.numberOfNotes())
+            assertTrue(alreadyArchivedNoteTest!!.add(newNote))
+            assertEquals(1, alreadyArchivedNoteTest!!.numberOfNotes())
+            assertFalse(alreadyArchivedNoteTest!!.archiveNote(0))
+        }
     }
 
 

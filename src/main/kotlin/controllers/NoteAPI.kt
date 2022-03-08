@@ -64,9 +64,11 @@ class NoteAPI(serializerType: Serializer) {
 
     fun listActiveNotes(): String {
         var activeNotes = ""
+        var index = -1
         for(Note in notes) {
+            index++
             if(!Note.isNoteArchived) {
-                activeNotes += "${Note}\n"
+                activeNotes += "$index :  ${Note}\n"
             }
         }
       return if(activeNotes.isEmpty()) {
@@ -74,6 +76,17 @@ class NoteAPI(serializerType: Serializer) {
         } else {
           activeNotes
       }
+    }
+
+    fun archiveNote(noteIndex: Int) : Boolean {
+        if(isValidIndex(noteIndex)) {
+            var note = notes[noteIndex]
+            if(!note.isNoteArchived) {
+                note.isNoteArchived = true
+                return true
+            }
+        }
+        return false
     }
 
     fun listArchivedNotes(): String {
