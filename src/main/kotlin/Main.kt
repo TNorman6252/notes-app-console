@@ -37,6 +37,7 @@ fun mainMenu() : Int {
          > |   10) Delete Note
          > |   11) Save Notes
          > |   12) Load Notes
+         > |   13) Archive Note
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -59,6 +60,7 @@ fun runMenu() {
             10 -> deleteNote()
             11 -> save()
             12 -> load()
+            13 -> archiveNote()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -140,6 +142,20 @@ fun deleteNote() {
             println("Delete Successful! Deleted Note: ${noteToDelete.noteTitle}")
         } else {
             println("Delete NOT Successful")
+        }
+    }
+}
+
+fun archiveNote() {
+    println(noteAPI.listActiveNotes() + "\n")
+    if(noteAPI.numberOfNotes() > 0) {
+        var noteIndex = parseInt(readNextLine("Enter index number of active note you want to update: "))
+        var result = noteAPI.archiveNote(noteIndex)
+
+        if (result) {
+            println("Note has been Successfully Archived")
+        } else {
+            println("Note Archiving NOT Successful")
         }
     }
 }
