@@ -26,6 +26,12 @@ class NoteAPI {
         return notes.size
     }
 
+    fun deleteNote(indexToDelete: Int) : Note? {
+        return if(isValidListIndex(indexToDelete, notes)) {
+            notes.removeAt(indexToDelete)
+        } else null
+    }
+
     fun findNote(index: Int): Note? {
         return if (isValidListIndex(index, notes)) {
             notes[index]
