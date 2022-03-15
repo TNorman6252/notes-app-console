@@ -3,6 +3,8 @@
 ## Introduction
 This app was created with the intention to make a simple CRUD system oriented around user-defined notes. As of right now, the app is mostly complete with all the standard and expected functionality for a user needs, but as times progresses, features will improve and increment in size. All the code is elegantly refactored to the best of my ability to allow for a clean and conscise reading experience of each source file along with relevant JUnit 5 testing functions.
 
+##  Attention: The latest version of this app is using lambdas to shorten and simplify many of the app's core functionality methods and greatly improves code readability.
+
 ## What's Included 
 - Add Note
 - List Notes
