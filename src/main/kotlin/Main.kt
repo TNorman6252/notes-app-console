@@ -38,6 +38,7 @@ fun mainMenu() : Int {
          > |   11) Save Notes
          > |   12) Load Notes
          > |   13) Archive Note
+         > |   14) Search Note by Title
          > ----------------------------------
          > |   0) Exit Program               |
          > ----------------------------------
@@ -61,6 +62,7 @@ fun runMenu() {
             11 -> save()
             12 -> load()
             13 -> archiveNote()
+            14 -> searchNoteByTitle()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -169,6 +171,18 @@ fun archiveNote() {
         } else {
             println("Note Archiving NOT Successful")
         }
+    }
+}
+
+fun searchNoteByTitle() {
+    var searchTitle = readNextLine("Enter title to search Notes by here: ")
+    var notesByTitle = noteAPI.searchByTitle(searchTitle)
+
+    if(notesByTitle.isEmpty()) {
+        println("No notes found")
+    }
+    else{
+        println(notesByTitle)
     }
 }
 
