@@ -104,25 +104,17 @@ class NoteAPI(serializerType: Serializer) {
     }
 
     fun numberOfArchivedNotes(): Int {
-        //helper method to determine how many archived notes there are
-        var numOfArchivedNotes = 0;
-        for(Note in notes) {
-            if(Note.isNoteArchived) {
-                numOfArchivedNotes++
-            }
-        }
-        return numOfArchivedNotes
+        return notes.stream()
+            .filter{note: Note -> note.isNoteArchived}
+            .count()
+            .toInt()
     }
 
     fun numberOfActiveNotes(): Int {
-        //helper method to determine how many active notes there are
-        var numOfActiveNotes = 0;
-        for(Note in notes) {
-            if(!Note.isNoteArchived) {
-                numOfActiveNotes++
-            }
-        }
-        return numOfActiveNotes
+        return notes.stream()
+            .filter{note: Note -> !note.isNoteArchived}
+            .count()
+            .toInt()
     }
 
     fun listNotesBySelectedPriority(priority: Int): String {
@@ -153,33 +145,11 @@ class NoteAPI(serializerType: Serializer) {
 
 
 
+    fun numberOfNotesByPriority(priority: Int): Int {
+        return notes.stream()
+            .filter{note: Note -> note.notePriority == priority}
+            .count()
+            .toInt()
+    }
 
-    fun numberOfNotesByPriority(priority : Int): Int {
-        //helper method to determine how many notes there are of a specific priority
-
-        var priority1 = 0
-        var priority2 = 0
-        var priority3 = 0
-        var priority4 = 0
-        var priority5 = 0
-
-        for(Note in notes) {
-            when (Note.notePriority) {
-                1 -> priority1++
-                2 -> priority2++
-                3 -> priority3++
-                4 -> priority4++
-                5 -> priority5++
-            }
-        }
-        when(priority){
-            1 -> return priority1
-            2 -> return priority2
-            3 -> return priority3
-            4 -> return priority4
-            5 -> return priority5
-
-        }
-        return -1
-}
 }
