@@ -12,6 +12,7 @@ This app was created with the intention to make a simple CRUD system oriented ar
 - Listing Notes By Priority Level
 - Update Note
 - Delete Note
+- List Note Contents
 - Persistence (XML and JSON)
 - Exit Note App
 
