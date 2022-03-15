@@ -28,6 +28,8 @@ class NoteAPITest {
     private var notesActive: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var notesPriority: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var noteNumbers: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
+    private var searchNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
+
 
     @BeforeEach
     fun setup(){
@@ -389,6 +391,28 @@ class NoteAPITest {
             assertEquals(2, populatedNotes!!.numberOfNotesByPriority(4))
             assertEquals(1, populatedNotes!!.numberOfNotesByPriority(5))
             assertEquals(0, emptyNotes!!.numberOfNotesByPriority(1))
+        }
+    }
+
+    @Nested
+    inner class SearchMethods {
+        @Test
+        fun searchNoteByUnknownTitle() {
+//            assertEquals(5, populatedNotes!!.numberOfNotes())
+//            assertEquals(0, emptyNotes!!.numberOfNotes())
+
+            val newNote = Note("Study Lambdas", 1, "College", true)
+            assertEquals(0, searchNotes!!.numberOfNotes())
+            assertTrue(searchNotes!!.add(newNote))
+            assertEquals("", searchNotes!!.searchByTitle("NOT Study Lambdas"))
+        }
+
+        @Test
+        fun searchNoteByCorrectTitle() {
+            val newNote = Note("Study Lambdas", 1, "College", true)
+            assertEquals(0, searchNotes!!.numberOfNotes())
+            assertTrue(searchNotes!!.add(newNote))
+            assertEquals("0: ${newNote.toString()}", searchNotes!!.searchByTitle("Study Lambdas"))
         }
     }
 
