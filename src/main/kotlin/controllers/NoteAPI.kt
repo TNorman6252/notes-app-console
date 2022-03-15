@@ -31,6 +31,7 @@ class NoteAPI(serializerType: Serializer) {
 
         if((foundNote != null) && (note != null)) {
             foundNote.noteTitle = note.noteTitle
+            foundNote.noteContents = note.noteContents
             foundNote.notePriority = note.notePriority
             foundNote.noteCategory = note.noteCategory
             return true
@@ -103,6 +104,16 @@ class NoteAPI(serializerType: Serializer) {
     @Throws(Exception::class)
     fun store() {
         serializer.write(notes)
+    }
+
+    //EXTRA FUNCTIONALITY
+    fun listALlNotesContents(): String {
+        var allNoteContents = ""
+        for(note in notes) {
+            allNoteContents += "Note index: " + notes.indexOf(note) + "\n"
+            allNoteContents += note.noteContents + "\n"
+        }
+        return allNoteContents
     }
 
     fun numberOfNotesByPriority(priority: Int): Int = notes.count { note: Note -> note.notePriority == priority }
