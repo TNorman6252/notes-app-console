@@ -39,7 +39,7 @@ fun mainMenu() : Int {
          > |   12) Load Notes
          > |   13) Archive Note
          > ----------------------------------
-         > |   0) Exit                      |
+         > |   0) Exit Program               |
          > ----------------------------------
          > ==>> """.trimMargin(">"))
 }
