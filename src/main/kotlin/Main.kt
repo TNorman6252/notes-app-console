@@ -39,6 +39,7 @@ fun mainMenu() : Int {
          > |   12) Load Notes
          > |   13) Archive Note
          > |   14) Search Note by Title
+         > |   15) List all Note Contents
          > ----------------------------------
          > |   0) Exit Program               |
          > ----------------------------------
@@ -63,6 +64,7 @@ fun runMenu() {
             12 -> load()
             13 -> archiveNote()
             14 -> searchNoteByTitle()
+            15 -> listAllNoteContents()
             0 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
@@ -72,9 +74,10 @@ fun runMenu() {
 fun addNote() {
     //logger.info { "addNote() function invoked" }
     val noteTitle = readNextLine("Enter a title for the note: ")
+    val noteContents = readNextLine("Enter note contents here: ")
     val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
     val noteCategory = readNextLine("Enter a category for the note: ")
-    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false))
+    val isAdded = noteAPI.add(Note(noteTitle, noteContents, notePriority, noteCategory, false))
 
     if(isAdded) {
         println("Added successfully")
@@ -133,10 +136,11 @@ fun updateNote() {
         val indexToUpdate = readNextInt("Enter the index of the note to update: ")
         if(noteAPI.isValidIndex(indexToUpdate)) {
             val noteTitle = readNextLine("Enter a title for the note: ")
+            val noteContents = readNextLine("Enter note contents here: ")
             val notePriority = parseInt(readNextLine("Enter a priority (1-low, 2, 3, 4, 5-high): "))
             val noteCategory = readNextLine("Enter a category for the note: ")
 
-            if(noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false))) {
+            if(noteAPI.updateNote(indexToUpdate, Note(noteTitle, noteContents, notePriority, noteCategory, false))) {
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -191,6 +195,17 @@ fun save() {
         noteAPI.store()
     } catch (e: Exception) {
         System.err.println("Error writing to file: $e")
+    }
+}
+
+// EXTRA FUNCTIONALITY
+fun listAllNoteContents() {
+    var allContents = noteAPI.listALlNotesContents()
+
+    if(allContents.isEmpty()) {
+        println("There are no notes stored in the system")
+    } else {
+        println(allContents)
     }
 }
 

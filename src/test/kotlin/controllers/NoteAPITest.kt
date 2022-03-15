@@ -29,15 +29,16 @@ class NoteAPITest {
     private var notesPriority: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var noteNumbers: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
     private var searchNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
+    private var noteContents: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
 
 
     @BeforeEach
-    fun setup(){
-        learnKotlin = Note("Learning Kotlin", 5, "College", false)
-        summerHoliday = Note("Summer Holiday to France", 1, "Holiday", false)
-        codeApp = Note("Code App", 4, "Work", false)
-        testApp = Note("Test App", 4, "Work", false)
-        swim = Note("Swim - Pool", 3, "Hobby", false)
+    fun setup() {
+        learnKotlin = Note("Learning Kotlin", "Test", 5, "College", false)
+        summerHoliday = Note("Summer Holiday to France", "Test", 1, "Holiday", false)
+        codeApp = Note("Code App", "Test", 4, "Work", false)
+        testApp = Note("Test App", "Test", 4, "Work", false)
+        swim = Note("Swim - Pool", "Test", 3, "Hobby", false)
 
         //adding 5 Note to the notes api
         populatedNotes!!.add(learnKotlin!!)
@@ -49,7 +50,7 @@ class NoteAPITest {
     }
 
     @AfterEach
-    fun tearDown(){
+    fun tearDown() {
         learnKotlin = null
         summerHoliday = null
         codeApp = null
@@ -63,7 +64,7 @@ class NoteAPITest {
     inner class AddNotes {
         @Test
         fun `adding a Note to a populated list adds to ArrayList`() {
-            val newNote = Note("Study Lambdas", 1, "College", false)
+            val newNote = Note("Study Lambdas", "Test", 1, "College", false)
             assertEquals(5, populatedNotes!!.numberOfNotes())
             assertTrue(populatedNotes!!.add(newNote))
             assertEquals(6, populatedNotes!!.numberOfNotes())
@@ -72,7 +73,7 @@ class NoteAPITest {
 
         @Test
         fun `adding a Note to an empty list adds to ArrayList`() {
-            val newNote = Note("Study Lambdas", 1, "College", false)
+            val newNote = Note("Study Lambdas", "Test", 1, "College", false)
             assertEquals(0, emptyNotes!!.numberOfNotes())
             assertTrue(emptyNotes!!.add(newNote))
             assertEquals(1, emptyNotes!!.numberOfNotes())
@@ -106,16 +107,16 @@ class NoteAPITest {
 
         @Test
         fun `listActiveNotes returns No Active Notes message when all arraylist objects have isNoteArchived set to true`() {
-            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+            val noteArchivedTest = Note("Test title", "Test", 2, "Test category", true)
             assertEquals(0, notesArchived!!.numberOfNotes())
-            assertTrue( notesArchived!!.add(noteArchivedTest))
+            assertTrue(notesArchived!!.add(noteArchivedTest))
             assertEquals(1, notesArchived!!.numberOfNotes())
             assertTrue(notesArchived!!.listActiveNotes().lowercase().contains("no active notes stored"))
         }
 
         @Test
         fun `listAllNotes returns Active Notes when all arrayList objects have isNoteArchived set to false`() {
-            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            val noteNotArchivedTest = Note("Test title", "Test", 2, "Test category", false)
             assertEquals(0, notesArchived!!.numberOfNotes())
             assertTrue(notesArchived!!.add(noteNotArchivedTest))
             assertEquals(1, notesArchived!!.numberOfNotes())
@@ -128,16 +129,16 @@ class NoteAPITest {
 
         @Test
         fun `listArchivedNotes returns No Archived Notes message when all arraylist objects have isNoteArchived set to false`() {
-            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
+            val noteNotArchivedTest = Note("Test title", "Test", 2, "Test category", false)
             assertEquals(0, notesArchived!!.numberOfNotes())
-            assertTrue( notesArchived!!.add(noteNotArchivedTest))
+            assertTrue(notesArchived!!.add(noteNotArchivedTest))
             assertEquals(1, notesArchived!!.numberOfNotes())
             assertTrue(notesArchived!!.listArchivedNotes().lowercase().contains("no archived notes stored"))
         }
 
         @Test
         fun `listArchivedNotes returns Archived Notes when all arrayList objects have isNoteArchived set to true`() {
-            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+            val noteArchivedTest = Note("Test title", "Test", 2, "Test category", true)
             assertEquals(0, notesArchived!!.numberOfNotes())
             assertTrue(notesArchived!!.add(noteArchivedTest))
             assertEquals(1, notesArchived!!.numberOfNotes())
@@ -150,12 +151,12 @@ class NoteAPITest {
 
         @Test
         fun `prints number of Archived Notes`() {
-            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
-            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+            val noteNotArchivedTest = Note("Test title", "Test", 2, "Test category", false)
+            val noteArchivedTest = Note("Test title", "Test", 2, "Test category", true)
 
             assertEquals(0, notesArchived!!.numberOfArchivedNotes())
-            assertTrue( notesArchived!!.add(noteNotArchivedTest))
-            assertTrue( notesArchived!!.add(noteArchivedTest))
+            assertTrue(notesArchived!!.add(noteNotArchivedTest))
+            assertTrue(notesArchived!!.add(noteArchivedTest))
             assertEquals(1, notesArchived!!.numberOfArchivedNotes())
         }
     }
@@ -165,14 +166,14 @@ class NoteAPITest {
 
         @Test
         fun `prints number of Active Notes`() {
-            val noteNotArchivedTest = Note("Test title", 2, "Test category", false)
-            val noteNotArchivedTest2 = Note("Another Test title", 3, "Test category", false)
-            val noteArchivedTest = Note("Test title", 2, "Test category", true)
+            val noteNotArchivedTest = Note("Test title", "Test", 2, "Test category", false)
+            val noteNotArchivedTest2 = Note("Another Test title", "Test", 3, "Test category", false)
+            val noteArchivedTest = Note("Test title", "Test", 2, "Test category", true)
 
             assertEquals(0, notesActive!!.numberOfActiveNotes())
-            assertTrue( notesActive!!.add(noteNotArchivedTest))
-            assertTrue( notesActive!!.add(noteNotArchivedTest2))
-            assertTrue( notesActive!!.add(noteArchivedTest))
+            assertTrue(notesActive!!.add(noteNotArchivedTest))
+            assertTrue(notesActive!!.add(noteNotArchivedTest2))
+            assertTrue(notesActive!!.add(noteArchivedTest))
             assertEquals(2, notesActive!!.numberOfActiveNotes())
         }
     }
@@ -182,14 +183,14 @@ class NoteAPITest {
 
         @Test
         fun `prints Notes by selected priority`() {
-            val note1 = Note("Test title", 2, "Test category", false)
-            val note2 = Note("Another Test title", 5, "Test category", false)
-            val note3 = Note("Test title", 2, "Test category", true)
+            val note1 = Note("Test title", "Test", 2, "Test category", false)
+            val note2 = Note("Another Test title", "Test", 5, "Test category", false)
+            val note3 = Note("Test title", "Test", 2, "Test category", true)
 
             assertEquals(0, notesPriority!!.numberOfNotes())
-            assertTrue( notesPriority!!.add(note1))
-            assertTrue( notesPriority!!.add(note2))
-            assertTrue( notesPriority!!.add(note3))
+            assertTrue(notesPriority!!.add(note1))
+            assertTrue(notesPriority!!.add(note2))
+            assertTrue(notesPriority!!.add(note3))
             val answer = notesPriority!!.listNotesBySelectedPriority(2)
             assertTrue(answer.contains(note1.toString()))
             assertTrue(!answer.contains(note2.toString()))
@@ -202,14 +203,14 @@ class NoteAPITest {
 
         @Test
         fun `prints Note object size categorized by selected priority level`() {
-            val note1 = Note("Test title", 2, "Test category", false)
-            val note2 = Note("Another Test title", 5, "Test category", false)
-            val note3 = Note("Test title", 2, "Test category", true)
+            val note1 = Note("Test title", "Test", 2, "Test category", false)
+            val note2 = Note("Another Test title", "Test", 5, "Test category", false)
+            val note3 = Note("Test title", "Test", 2, "Test category", true)
 
             assertEquals(0, noteNumbers!!.numberOfNotes())
-            assertTrue( noteNumbers!!.add(note1))
-            assertTrue( noteNumbers!!.add(note2))
-            assertTrue( noteNumbers!!.add(note3))
+            assertTrue(noteNumbers!!.add(note1))
+            assertTrue(noteNumbers!!.add(note2))
+            assertTrue(noteNumbers!!.add(note3))
             val answer = noteNumbers!!.numberOfNotesByPriority(2)
             assertTrue(answer == 2)
         }
@@ -238,10 +239,10 @@ class NoteAPITest {
     @Nested
     inner class UpdateNotes {
         @Test
-        fun `updating a note that does not exist returns false`(){
-            assertFalse(populatedNotes!!.updateNote(6, Note("Updating Note", 2, "Work", false)))
-            assertFalse(populatedNotes!!.updateNote(-1, Note("Updating Note", 2, "Work", false)))
-            assertFalse(emptyNotes!!.updateNote(0, Note("Updating Note", 2, "Work", false)))
+        fun `updating a note that does not exist returns false`() {
+            assertFalse(populatedNotes!!.updateNote(6, Note("Updating Note", "Test", 2, "Work", false)))
+            assertFalse(populatedNotes!!.updateNote(-1, Note("Updating Note", "Test", 2, "Work", false)))
+            assertFalse(emptyNotes!!.updateNote(0, Note("Updating Note", "Test", 2, "Work", false)))
         }
 
         @Test
@@ -253,7 +254,7 @@ class NoteAPITest {
             assertEquals("Hobby", populatedNotes!!.findNote(4)!!.noteCategory)
 
             //update note 5 with new information and ensure contents updated successfully
-            assertTrue(populatedNotes!!.updateNote(4, Note("Updating Note", 2, "College", false)))
+            assertTrue(populatedNotes!!.updateNote(4, Note("Updating Note", "Test", 2, "College", false)))
             assertEquals("Updating Note", populatedNotes!!.findNote(4)!!.noteTitle)
             assertEquals(2, populatedNotes!!.findNote(4)!!.notePriority)
             assertEquals("College", populatedNotes!!.findNote(4)!!.noteCategory)
@@ -344,7 +345,7 @@ class NoteAPITest {
     inner class ArchiveNote {
         @Test
         fun `adding Note and archiving it`() {
-            val newNote = Note("Study Lambdas", 1, "College", false)
+            val newNote = Note("Study Lambdas", "Test", 1, "College", false)
             assertEquals(0, archiveNoteTest!!.numberOfNotes())
             assertTrue(archiveNoteTest!!.add(newNote))
             assertEquals(1, archiveNoteTest!!.numberOfNotes())
@@ -353,7 +354,7 @@ class NoteAPITest {
 
         @Test
         fun `adding Note but it's already archived so a message telling the user is displayed`() {
-            val newNote = Note("Study Lambdas", 1, "College", true)
+            val newNote = Note("Study Lambdas", "Test", 1, "College", true)
             assertEquals(0, alreadyArchivedNoteTest!!.numberOfNotes())
             assertTrue(alreadyArchivedNoteTest!!.add(newNote))
             assertEquals(1, alreadyArchivedNoteTest!!.numberOfNotes())
@@ -401,7 +402,7 @@ class NoteAPITest {
 //            assertEquals(5, populatedNotes!!.numberOfNotes())
 //            assertEquals(0, emptyNotes!!.numberOfNotes())
 
-            val newNote = Note("Study Lambdas", 1, "College", true)
+            val newNote = Note("Study Lambdas", "Test", 1, "College", true)
             assertEquals(0, searchNotes!!.numberOfNotes())
             assertTrue(searchNotes!!.add(newNote))
             assertEquals("", searchNotes!!.searchByTitle("NOT Study Lambdas"))
@@ -409,12 +410,31 @@ class NoteAPITest {
 
         @Test
         fun searchNoteByCorrectTitle() {
-            val newNote = Note("Study Lambdas", 1, "College", true)
+            val newNote = Note("Study Lambdas", "Test", 1, "College", true)
             assertEquals(0, searchNotes!!.numberOfNotes())
             assertTrue(searchNotes!!.add(newNote))
             assertEquals("0: ${newNote.toString()}", searchNotes!!.searchByTitle("Study Lambdas"))
         }
     }
 
+    @Nested
+    inner class NoteContents {
 
+        @Test
+        fun `listNoteContents When there's no notes present`() {
+            assertEquals(0, noteContents!!.numberOfNotes())
+            assertEquals("", noteContents!!.listALlNotesContents())
+        }
+
+        @Test
+        fun `listNoteContents When there is a note present`() {
+            assertEquals(0, noteContents!!.numberOfNotes())
+            val newNote = Note("Study Lambdas", "Test", 1, "College", true)
+            assertTrue(noteContents!!.add(newNote))
+            val answer = "Note index: 0\nTest\n"
+         assertEquals( answer ,noteContents!!.listALlNotesContents())
+        }
+
+
+    }
 }
