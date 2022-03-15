@@ -82,18 +82,26 @@ class NoteAPI(serializerType: Serializer) {
         return false
     }
 
+//    fun listArchivedNotes(): String {
+//        var archivedNotes = ""
+//        for(Note in notes) {
+//            if(Note.isNoteArchived) {
+//                archivedNotes += "${Note}\n"
+//            }
+//        }
+//        return if(archivedNotes.isEmpty()) {
+//            "No archived notes"
+//        } else {
+//            archivedNotes
+//        }
+//    }
+
     fun listArchivedNotes(): String {
-        var archivedNotes = ""
-        for(Note in notes) {
-            if(Note.isNoteArchived) {
-                archivedNotes += "${Note}\n"
+      return if (numberOfArchivedNotes() == 0) "No Archived Notes Stored"
+        else notes.filter { it.isNoteArchived }
+            .joinToString(separator = "\n") { note ->
+                notes.indexOf(note).toString() + ": " + note.toString()
             }
-        }
-        return if(archivedNotes.isEmpty()) {
-            "No archived notes"
-        } else {
-            archivedNotes
-        }
     }
 
     fun numberOfArchivedNotes(): Int {

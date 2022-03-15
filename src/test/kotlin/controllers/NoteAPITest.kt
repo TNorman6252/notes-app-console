@@ -130,7 +130,7 @@ class NoteAPITest {
             assertEquals(0, notesArchived!!.numberOfNotes())
             assertTrue( notesArchived!!.add(noteNotArchivedTest))
             assertEquals(1, notesArchived!!.numberOfNotes())
-            assertTrue(notesArchived!!.listArchivedNotes().lowercase().contains("no archived notes"))
+            assertTrue(notesArchived!!.listArchivedNotes().lowercase().contains("no archived notes stored"))
         }
 
         @Test
